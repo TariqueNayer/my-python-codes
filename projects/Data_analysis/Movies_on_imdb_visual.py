@@ -50,7 +50,28 @@ def director_bar(d_id : int):
     plt.savefig(f"figure_{d_name}.png")
     plt.show()
 
+    # Compare plot to compare a films budget and revenue.
+def movie_prf(name):
+    """Get a line chart of a movie's budget and revenue to find out how much profit/loss its made."""
+    # Getting data.
+    name = name.capitalize()
+    data = full_df.loc[full_df['title'] == name, ['revenue', 'budget']]
+    revenue = data.at[0, 'revenue']
+    budget = data.at[0, 'budget']
+    result = revenue - budget
+    if result > budget: outcome = 'Profit' 
+    else: outcome = 'Loss'
+
+
+    # Plotting Time!
+    sns.set_theme(style="darkgrid")
+    fig, ax = plt.subplots(figsize=(12, 5))
+    ax.bar(['Budget','Revenue'], [budget,revenue])
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'{int(x):,}'))
+    plt.show()
+
 # Gotta close the connection to the Databae.
 conn.close()
 if __name__ == "__main__":
     director_bar(4762)
+    movie_prf('Avatar')
