@@ -53,6 +53,9 @@ def director_bar(d_id : int):
     # Compare plot to compare a films budget and revenue.
 def movie_prf(name):
     """Get a line chart of a movie's budget and revenue to find out how much profit/loss its made."""
+    if data.empty:
+        print(f"Movie '{name}' not found.")
+        return
     # Getting data.
     name = name.capitalize()
     data = full_df.loc[full_df['title'] == name, ['revenue', 'budget']]
